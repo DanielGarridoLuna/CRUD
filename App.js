@@ -1,48 +1,74 @@
 import * as React from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
+import { Button, View, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import SRadd from './Pantallas/SRadd';
+
+
+const styles = StyleSheet.create({
+  Boton: {
+    margin: 10,
+    minWidth: "80%",
+    textAlign: "center",
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
 function HomeScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
+    <View
+    style={styles.container} >
+
+      <View  style={styles.Boton}>
       <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
+        title="Agregar Información"
+        color="#0114F0"
+        onPress={() => navigation.navigate('Agregar')}
       />
+      </View>
+
+      <View  style={styles.Boton}>
+      <Button
+        title="Leer Información"
+        color="#0114F0"
+        
+      />
+      </View>
+
     </View>
   );
 }
 
-function DetailsScreen() {
+
+function AddScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-    </View>
+    <SRadd/>
   );
 }
+
+
+
+
 
 const Stack = createNativeStackNavigator();
 
-function App() {
+function SRMain() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
+
+        <Stack.Screen name="Agregar" component={AddScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-export default App;
+export default SRMain;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
