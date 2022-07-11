@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import SRadd from './Pantallas/SRadd';
-
+import SRread from './Pantallas/SRread';
 
 const styles = StyleSheet.create({
   Boton: {
@@ -36,7 +36,7 @@ function HomeScreen({ navigation }) {
       <Button
         title="Leer Información"
         color="#0114F0"
-        
+        onPress={() => navigation.navigate('Leer')}
       />
       </View>
 
@@ -51,7 +51,11 @@ function AddScreen({ navigation }) {
   );
 }
 
-
+function ReadScreen({ navigation }) {
+  return (
+    <SRread/>
+  );
+}
 
 
 
@@ -62,9 +66,8 @@ function SRMain() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
-
         <Stack.Screen name="Agregar" component={AddScreen} />
-
+        <Stack.Screen name="Leer" component={ReadScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
