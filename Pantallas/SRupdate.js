@@ -67,7 +67,21 @@ const SRupdate = () => {
         setelementos(articulos)
     }
 
-
+    async function recuperar(iden){
+        const docRef = doc(db, "Productos", iden);
+        const docSnap = await getDoc(docRef);
+    
+        if (docSnap.exists()) {
+          const txtproducto = docSnap.data().Producto;
+          const txtprecio = docSnap.data().Precio;
+          const txtexi = docSnap.data().Existencia;
+          const txtcate = docSnap.data().Categoria;
+    
+        setproductos({...productos,['producto']:txtproducto, ['precio']:txtprecio, ['existencia']:txtexi, ['categoria']:txtcate})
+        } else {
+          alert('Codigo Invalido')
+        }
+      }
 
     return (
         <ScrollView style={styles.Sec}>
@@ -102,14 +116,17 @@ const SRupdate = () => {
         value={productos.categoria}
         onChangeText={(value)=>capturar('categoria',value)}
         />
-        
+
         </View>
 
         <Button title="Leer"  onPress={() =>leer()}>Cargar Productos</Button>
         {
         elementos.map(elemento=>{
             return(
-                <TouchableOpacity key={elemento.Id}>
+                <TouchableOpacity 
+                key={elemento.Id}
+                onPress={() => recuperar(elemento.Id)}
+                >
                 <View style={styles.Contenedor} >
                 <Text style={styles.Titulo}>{elemento.Producto}</Text>
                 <Text style={styles.Subtitulo}>Precio:${elemento.Precio}</Text>
