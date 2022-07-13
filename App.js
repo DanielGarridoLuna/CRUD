@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import SRadd from './Pantallas/SRadd';
 import SRread from './Pantallas/SRread';
+import SRupdate from './Pantallas/SRupdate';
 
 const styles = StyleSheet.create({
   Boton: {
@@ -40,6 +41,14 @@ function HomeScreen({ navigation }) {
       />
       </View>
 
+      <View  style={styles.Boton}>
+      <Button
+        title="Actualizar Información"
+        color="#0114F0"
+        onPress={() => navigation.navigate('Actualizar')}
+      />
+      </View>
+
     </View>
   );
 }
@@ -57,6 +66,11 @@ function ReadScreen({ navigation }) {
   );
 }
 
+function UpdateScreen({ navigation }) {
+  return (
+    <SRupdate/>
+  );
+}
 
 
 const Stack = createNativeStackNavigator();
@@ -68,6 +82,7 @@ function SRMain() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Agregar" component={AddScreen} />
         <Stack.Screen name="Leer" component={ReadScreen} />
+        <Stack.Screen name="Actualizar" component={UpdateScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
