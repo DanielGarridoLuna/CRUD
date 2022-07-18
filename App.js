@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SRadd from './Pantallas/SRadd';
 import SRread from './Pantallas/SRread';
 import SRupdate from './Pantallas/SRupdate';
+import SRdelete from './Pantallas/SRdelete';
 
 const styles = StyleSheet.create({
   Boton: {
@@ -49,6 +50,14 @@ function HomeScreen({ navigation }) {
       />
       </View>
 
+      <View  style={styles.Boton}>
+      <Button
+        title="Eliminar Información"
+        color="#0114F0"
+        onPress={() => navigation.navigate('Eliminar')}
+      />
+      </View>
+
     </View>
   );
 }
@@ -72,6 +81,11 @@ function UpdateScreen({ navigation }) {
   );
 }
 
+function DeleteScreen({ navigation }) {
+  return (
+    <SRdelete/>
+  );
+}
 
 const Stack = createNativeStackNavigator();
 
@@ -83,6 +97,7 @@ function SRMain() {
         <Stack.Screen name="Agregar" component={AddScreen} />
         <Stack.Screen name="Leer" component={ReadScreen} />
         <Stack.Screen name="Actualizar" component={UpdateScreen} />
+        <Stack.Screen name="Eliminar" component={DeleteScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
