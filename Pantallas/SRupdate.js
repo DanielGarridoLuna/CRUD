@@ -2,7 +2,8 @@ import React from 'react';
 import {useState} from 'react'
 import {ScrollView, Button, View, StyleSheet, Text, TouchableOpacity, TextInput } from 'react-native';
 import { db } from '../Server/Conexion';
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc, updateDoc } from "firebase/firestore";
+
 
 const SRupdate = () => {
 
@@ -34,11 +35,19 @@ const SRupdate = () => {
             borderWidth: 1,
             padding: 10,
           },
+        boton:{
+            margin: 10,
+            minWidth: "80%",
+            justifyContent:'center',
+            alignItems:'center',
+
+        },
       });
 
 
     const [elementos, setelementos]=useState([])
     const [productos, setproductos]=useState({
+        id:'',
         producto:'',
         precio:'',
         existencia:'',
@@ -77,11 +86,24 @@ const SRupdate = () => {
           const txtexi = docSnap.data().Existencia;
           const txtcate = docSnap.data().Categoria;
     
-        setproductos({...productos,['producto']:txtproducto, ['precio']:txtprecio, ['existencia']:txtexi, ['categoria']:txtcate})
+        setproductos({...productos,['id']:iden, ['producto']:txtproducto, ['precio']:txtprecio, ['existencia']:txtexi, ['categoria']:txtcate})
         } else {
           alert('Codigo Invalido')
         }
       }
+
+    async function actualizar(){
+        const prodRef = doc(db, "Productos", productos.id);
+        await updateDoc(prodRef, {
+                Producto:productos.producto,
+                Precio:productos.precio,
+                Existencia:productos.existencia,
+                Categoria:productos.categoria
+          });
+          
+        alert('Producto Actualizado');
+        leer();
+    }
 
     return (
         <ScrollView style={styles.Sec}>
@@ -117,6 +139,10 @@ const SRupdate = () => {
         onChangeText={(value)=>capturar('categoria',value)}
         />
 
+        </View>
+
+        <View style={styles.boton}>
+        <Button color="#FA9B0D" title="Actualizar"  onPress={() =>actualizar()}>Actualizar Productos</Button>
         </View>
 
         <Button title="Leer"  onPress={() =>leer()}>Cargar Productos</Button>
